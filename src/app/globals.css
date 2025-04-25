@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+
+:root {
+  --background: #161616;
+  --foreground: #f0ebd7;
+  --glxp-beige: #f0ebd7;
+  --glxp-black: #161616;
+  --glxp-yellow: #ffc738;
+  --glxp-green: #24ee79;
+  --glxp-pink: #ffb8b8;
+  --glxp-blue: #819bfe;
+  --glxp-orange: #fe4400;
+  --glxp-white: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #161616;
+    --foreground: #f0ebd7;
+    --glxp-beige: #f0ebd7;
+    --glxp-black: #161616;
+    --glxp-yellow: #ffc738;
+    --glxp-green: #24ee79;
+    --glxp-pink: #ffb8b8;
+    --glxp-blue: #819bfe;
+    --glxp-orange: #fe4400;
+    --glxp-white: white;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+#__next,
+#root {
+  background: var(--background);
+  min-height: 100vh;
+}
+
+/* start ==========全局鼠标光标样式============= */
+
+/* 自定义光标基本样式 */
+html,
+body {
+  cursor: none; /* 隐藏默认光标 */
+}
+
+/* 定义鼠标光标的基本样式 */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--glxp-orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
+}
+
+/* 可点击元素的样式 */
+a,
+button,
+input[type="submit"],
+.cursor-pointer {
+  cursor: none;
+}
+
+/* end ==========全局鼠标光标样式============= */
