@@ -24,10 +24,10 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
     >
       {/* 顶部Logo和关闭按钮 */}
       <nav className="w-full z-[150] py-5">
-        <div className="px-6 mx-auto sm:px-6 lg:px-20">
+        <div className="mx-auto px-7 sm:px-7 lg:px-20">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" onClick={onClose}>
+            <Link href="/">
               <div className="flex-shrink-0">
                 <div className="flex items-center cursor-pointer">
                   <Image
@@ -59,12 +59,12 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
       {/* 菜单内容 - 使用ResponsiveLayout组件 */}
       <div className="flex flex-grow">
         <ResponsiveLayout
-          mobileClassName="flex flex-col items-start w-full h-full pt-25 pl-6"
+          mobileClassName="flex flex-col items-start w-full h-full pt-15 pl-6"
           desktopClassName="flex flex-col items-end justify-center w-full h-full pr-40"
         >
           {/* 菜单项*/}
           <nav className="menu-items">
-            <div className="mb-4 md:mb-8">
+            <div className="mb-6 md:mb-8">
               <div className="flex items-center gap-6 md:gap-8">
                 <span className="text-[var(--glxp-yellow)] italic text-xl md:text-2xl">
                   01
@@ -79,7 +79,7 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
               </div>
             </div>
 
-            <div className="mb-4 md:mb-8">
+            <div className="mb-6 md:mb-8">
               <div className="flex items-center gap-6 md:gap-8">
                 <span className="text-[var(--glxp-yellow)] italic text-xl md:text-2xl">
                   02
@@ -94,7 +94,7 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
               </div>
             </div>
 
-            <div className="mb-4 md:mb-8">
+            <div className="mb-6 md:mb-8">
               <div className="flex items-center gap-6 md:gap-8">
                 <span className="text-[var(--glxp-yellow)] italic text-xl md:text-2xl">
                   03
@@ -109,7 +109,7 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
               </div>
             </div>
 
-            <div className="mb-4 md:mb-8">
+            <div className="mb-6 md:mb-8">
               <div className="flex items-center gap-6 md:gap-8">
                 <span className="text-[var(--glxp-yellow)] italic text-xl md:text-2xl">
                   04

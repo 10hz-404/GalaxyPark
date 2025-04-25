@@ -38,7 +38,7 @@ export function Navbar() {
       <nav
         className={`nav-bar fixed top-5 left-0 right-0 z-50 transition-all duration-300`}
       >
-        <div className="px-4 mx-auto sm:px-6 lg:px-20">
+        <div className="mx-auto px-7 sm:px-7 lg:px-20">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/">

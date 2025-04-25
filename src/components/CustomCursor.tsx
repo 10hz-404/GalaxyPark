@@ -27,8 +27,11 @@ export default function CustomCursor() {
     const target = e.target as HTMLElement;
     const targetTagName = target.tagName.toLowerCase();
 
+    // 使用closest方法检查当前元素或其任何父元素是否包含clickable类
+    const hasClickableParent = !!target.closest(".clickable");
+
     const isClickable =
-      target.classList.contains("clickable") ||
+      hasClickableParent ||
       targetTagName === "a" ||
       targetTagName === "button" ||
       (targetTagName === "input" && target.getAttribute("type") === "submit") ||
@@ -68,8 +71,8 @@ export default function CustomCursor() {
 
   // 使用计算样式对象提高可读性
   const cursorStyle = {
-    width: isHoveringClickable ? "45px" : "20px",
-    height: isHoveringClickable ? "45px" : "20px",
+    width: isHoveringClickable ? "60px" : "20px",
+    height: isHoveringClickable ? "60px" : "20px",
     opacity: isVisible ? 1 : 0,
     // 添加平滑过渡效果
     transition: "width 0.2s, height 0.2s, opacity 0.3s",
