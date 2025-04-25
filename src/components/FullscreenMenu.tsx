@@ -23,7 +23,7 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
       }`}
     >
       {/* 顶部Logo和关闭按钮 */}
-      <nav className="w-full z-[150] py-5">
+      <nav className="w-full z-[150] pt-3">
         <div className="mx-auto px-7 sm:px-7 lg:px-20">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
@@ -35,7 +35,11 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
                     alt="Galaxy Park Logo"
                     width={120}
                     height={40}
-                    className="w-auto h-10"
+                    className="w-auto h-10 invert-[53%] sepia-[20%] saturate-[4000%] hue-rotate-[1deg] brightness-[102%] contrast-[105%]"
+                    style={{
+                      filter:
+                        "var(--glxp-yellow-filter, invert(0%) sepia(100%) saturate(4000%) hue-rotate(1deg) brightness(1000%) contrast(100%))",
+                    }}
                   />
                 </div>
               </div>
