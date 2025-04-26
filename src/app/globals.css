@@ -50,6 +50,12 @@ body {
     var(--font-smiley-sans); */
 }
 
+#__next,
+#root {
+  background: var(--background);
+  min-height: 100vh;
+}
+
 /* START ==========中英文字体配置============= */
 :lang(zh),
 :lang(zh-CN) {
@@ -70,12 +76,6 @@ body {
 }
 
 /* END ==========中英文字体配置============= */
-
-#__next,
-#root {
-  background: var(--background);
-  min-height: 100vh;
-}
 
 /* START ==========全局鼠标光标样式============= */
 
@@ -112,3 +112,9 @@ input[type="submit"],
 }
 
 /* END ==========全局鼠标光标样式============= */
+
+/* 选中文字样式 */
+::selection {
+  background-color: var(--glxp-orange);
+  /* color: var(--glxp-black); */
+}

@@ -1,5 +1,6 @@
-import path from "path";
-
+/*
+菜单配置
+*/
 export default [
     {
         name: "BLOG",

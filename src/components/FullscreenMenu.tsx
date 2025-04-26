@@ -61,14 +61,14 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
           {/* 菜单项*/}
           <nav className="menu-items">
             {menus.map((menu, index) => (
-              <div key={menu.name} className="mb-6 md:mb-8">
-                <div className="flex items-center gap-6 md:gap-8">
-                  <span className="text-[var(--glxp-yellow)] italic text-2xl md:text-4xl font-bold font-made-bon-voyage">
+              <div key={menu.name} className="mb-6 xl:mb-8">
+                <div className="flex items-center gap-6 xl:gap-8">
+                  <span className="text-[var(--glxp-yellow)] italic text-2xl xl:text-4xl font-bold font-made-bon-voyage">
                     {String(index + 1).padStart(2, "0")}.
                   </span>
                   <Link
                     href={menu.path}
-                    className="text-5xl md:text-7xl lg:text-9xl text-[var(--glxp-yellow)] font-bold duration-300"
+                    className="text-5xl xl:text-7xl lg:text-9xl text-[var(--glxp-yellow)] font-bold duration-300"
                     onClick={onClose}
                   >
                     {menu.name}

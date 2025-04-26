@@ -7,13 +7,13 @@ export const Footer = () => {
 
   return (
     // todo 待删除bg-black
-    <footer className="px-6 py-10 bg-black text-cream md:px-10">
-      <div className="max-w-md mx-auto md:max-w-7xl">
+    <footer className="px-6 pb-10 text-cream xl:px-10 ">
+      <div className="max-w-md mx-auto xl:max-w-7xl">
         {/* 桌面端布局顶部部分 */}
-        <div className="hidden md:flex md:items-start md:justify-between md:mb-16">
+        <div className="hidden xl:flex xl:items-start xl:justify-between">
           {/* 左侧 - 邮件订阅和LOGO */}
           <div className="flex-1">
-            <div className="mb-10">
+            {/* <div className="mb-10">
               <h3 className="mb-4 text-xl text-cream">
                 Sign up to our newsletter
               </h3>
@@ -54,10 +54,10 @@ export const Footer = () => {
                   </label>
                 </div>
               </form>
-            </div>
+            </div> */}
 
             {/* items-center */}
-            <div className="flex justify-between mb-6">
+            <div className="flex items-center justify-between mb-6">
               <div>
                 <svg
                   width="500"
@@ -75,9 +75,9 @@ export const Footer = () => {
               </div>
 
               <div className="flex-shrink-0">
-                <div className="flex flex-col items-end mt-20">
+                <div className="flex flex-col items-end mt-30">
                   {menus.map((menu) => (
-                    <Link key={menu.name} href={menu.path} className="mb-6">
+                    <Link key={menu.name} href={menu.path} className="mb-8">
                       {menu.name}
                     </Link>
                   ))}
@@ -88,7 +88,7 @@ export const Footer = () => {
         </div>
 
         {/* 移动端 Logo */}
-        <div className="mb-4 md:hidden">
+        <div className="mb-4 xl:hidden">
           <svg
             width="200"
             height="80"
@@ -102,7 +102,7 @@ export const Footer = () => {
         </div>
 
         {/* 移动端的订阅表单 */}
-        <div className="mb-10 md:hidden">
+        {/* <div className="mb-10 xl:hidden">
           <h3 className="mb-4 text-lg text-cream">Sign up to our newsletter</h3>
           <form className="flex flex-col gap-4">
             <div className="flex items-center">
@@ -141,67 +141,64 @@ export const Footer = () => {
               </label>
             </div>
           </form>
-        </div>
+        </div> */}
 
-        {/* 社交媒体链接 - 响应式设计 */}
-        <div className="flex gap-4 mb-10 md:hidden">
+        {/* 社交媒体链接 - 移动端 */}
+        <div className="flex gap-4 mb-10 xl:hidden">
           <Link
-            href="https://linkedin.com"
-            className="flex-1 px-5 py-2 text-center transition-colors border rounded-full border-cream hover:bg-cream hover:text-black"
+            href="https://www.xiaohongshu.com/user/profile/5dbd03f700000000010089b2"
+            className="flex-1 px-4 py-2 text-sm text-center transition-colors border rounded-full border-cream hover:bg-cream"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            LinkedIn
+            RedNote
           </Link>
           <Link
-            href="https://instagram.com"
-            className="flex-1 px-5 py-2 text-center transition-colors border rounded-full border-cream hover:bg-cream hover:text-black"
+            href="https://weibo.com/u/7994883037"
+            className="flex-1 px-4 py-2 text-sm text-center transition-colors border rounded-full border-cream hover:bg-cream"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Instagram
+            WeiBo
           </Link>
         </div>
 
         {/* 底部信息 - 响应式设计 */}
-        <div className="md:flex md:items-center md:justify-between md:pt-6 ">
+        <div className="xl:flex xl:items-center xl:justify-between xl:pt-6 ">
           {/* 联系信息 */}
-          <div className="mb-6 text-sm md:mb-0 md:text-base md:flex md:gap-10">
+          <div className="mb-6 text-sm xl:mb-0 xl:text-base xl:flex xl:gap-10">
             <div>
               <p>1208490466@qq.com</p>
             </div>
-
-            <Link href="/privacy" className="hidden md:inline hover:underline">
-              Privacy Policy
-            </Link>
           </div>
 
           {/* 地址和版权 */}
-          <div className="mb-6 text-sm md:mb-0 md:text-base">
-            <p>
+          <div className="mb-6 text-sm xl:mb-0 xl:text-base">
+            <p className="mb-6 xl:mb-0">
               HERE, Xiashan District, Zhanjiang City, Guangdong Province, China
             </p>
             <p>© {currentYear} Only GalaxyPark Limited</p>
           </div>
 
           {/* 桌面端社交媒体链接 */}
-          <div className="hidden md:flex md:gap-4">
+          <div className="hidden xl:flex xl:gap-4">
             <Link
-              href="https://linkedin.com"
-              className="px-6 py-2 transition-colors border rounded-full border-cream hover:bg-cream hover:text-black"
+              href="https://www.xiaohongshu.com/user/profile/5dbd03f700000000010089b2"
+              className="px-6 py-2 transition-colors border rounded-full border-cream hover:bg-cream"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              LinkedIn
+              RedNote
             </Link>
             <Link
-              href="https://instagram.com"
-              className="px-6 py-2 transition-colors border rounded-full border-cream hover:bg-cream hover:text-black"
+              href="https://weibo.com/u/7994883037"
+              className="px-6 py-2 transition-colors border rounded-full border-cream hover:bg-cream"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Instagram
+              WeiBo
             </Link>
           </div>
-        </div>
-
-        {/* 移动端隐私政策链接 */}
-        <div className="mb-6 md:hidden">
-          <Link href="/privacy" className="text-sm hover:underline">
-            Privacy Policy
-          </Link>
         </div>
       </div>
     </footer>
