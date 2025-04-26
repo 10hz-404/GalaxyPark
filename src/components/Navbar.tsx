@@ -5,11 +5,9 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { FullscreenMenu } from "./FullscreenMenu";
 import { MenuIcon } from "../assets/icons/menu";
-import { useScreenSize } from "../hooks/useScreenSize";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isMobile } = useScreenSize();
   const [mounted, setMounted] = useState(false);
 
   // 确保组件已经在客户端挂载后再渲染会变化的部分
@@ -61,12 +59,16 @@ export function Navbar() {
               className="z-50 inline-flex items-center justify-center p-2 rounded-md clickable"
               aria-expanded={isMenuOpen ? "true" : "false"}
             >
-              {mounted && isMobile ? (
-                <MenuIcon fill="var(--glxp-beige)" className="w-8 h-8" />
-              ) : (
-                <span className="clickable text-[var(--glxp-beige)] text-lg font-medium">
-                  MENU
-                </span>
+              {mounted && (
+                <>
+                  <MenuIcon
+                    fill="var(--glxp-beige)"
+                    className="w-8 h-8 xl:hidden"
+                  />
+                  <span className="hidden xl:block clickable text-[var(--glxp-beige)] text-lg font-medium">
+                    MENU
+                  </span>
+                </>
               )}
             </button>
           </div>

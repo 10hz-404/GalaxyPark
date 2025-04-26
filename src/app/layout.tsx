@@ -4,7 +4,7 @@ import "./globals.css";
 import { Provider } from "./provider";
 import { Navbar } from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
-import { ResponsiveLayout } from "@/components/ResponsiveLayout";
+import { Footer } from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,10 +44,13 @@ export default function RootLayout({
           {/* 主体内容 */}
           <main className="pt-20">{children}</main>
 
-          {/* 鼠标光标 */}
-          <ResponsiveLayout desktopClassName="block" mobileClassName="hidden">
+          {/* 页脚 */}
+          <Footer />
+
+          {/* 鼠标光标 - 只在xl断点(1280px)及以上显示 */}
+          <div className="hidden xl:block">
             <CustomCursor />
-          </ResponsiveLayout>
+          </div>
         </Provider>
       </body>
     </html>

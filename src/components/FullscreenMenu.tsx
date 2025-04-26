@@ -1,10 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { ResponsiveLayout } from "./ResponsiveLayout";
 import { CloseIcon } from "../assets/icons/close";
-import { useScreenSize } from "../hooks/useScreenSize";
+import menus from "../config/menus";
 
 interface FullscreenMenuProps {
   isOpen: boolean;
@@ -12,8 +9,6 @@ interface FullscreenMenuProps {
 }
 
 export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
-  const { isDesktop, isMobile } = useScreenSize();
-
   return (
     <div
       className={`fixed inset-0 bg-[var(--glxp-orange)] z-[100] flex flex-col transition-all duration-700 ease-in-out ${
@@ -45,14 +40,14 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
               </div>
             </Link>
 
-            {/* 关闭按钮 - 使用CloseIcon */}
+            {/* 关闭按钮 - 使用响应式类控制大小 */}
             <button
               onClick={onClose}
               className="inline-flex items-center justify-center p-2 rounded-md clickable"
               aria-expanded={isOpen ? "true" : "false"}
             >
               <CloseIcon
-                className={isDesktop ? "w-8 h-8" : "w-6 h-6"}
+                className="w-6 h-6 xl:w-8 xl:h-8"
                 fill="var(--glxp-yellow)"
               />
             </button>
@@ -60,75 +55,29 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
         </div>
       </nav>
 
-      {/* 菜单内容 - 使用ResponsiveLayout组件 */}
+      {/* 菜单内容 */}
       <div className="flex flex-grow">
-        <ResponsiveLayout
-          mobileClassName="flex flex-col items-start w-full h-full pt-15 pl-6"
-          desktopClassName="flex flex-col items-end justify-center w-full h-full pr-40"
-        >
+        <div className="flex flex-col items-start w-full h-full pl-6 pt-15 xl:items-end xl:justify-center xl:pr-40">
           {/* 菜单项*/}
           <nav className="menu-items">
-            <div className="mb-6 md:mb-8">
-              <div className="flex items-center gap-6 md:gap-8">
-                <span className="text-[var(--glxp-yellow)] italic text-xl md:text-2xl">
-                  01
-                </span>
-                <Link
-                  href="/work"
-                  className="text-5xl md:text-7xl lg:text-9xl text-[var(--glxp-yellow)] font-bold duration-300"
-                  onClick={onClose}
-                >
-                  BLOG
-                </Link>
+            {menus.map((menu, index) => (
+              <div key={menu.name} className="mb-6 md:mb-8">
+                <div className="flex items-center gap-6 md:gap-8">
+                  <span className="text-[var(--glxp-yellow)] italic text-xl md:text-2xl">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <Link
+                    href={menu.path}
+                    className="text-5xl md:text-7xl lg:text-9xl text-[var(--glxp-yellow)] font-bold duration-300"
+                    onClick={onClose}
+                  >
+                    {menu.name}
+                  </Link>
+                </div>
               </div>
-            </div>
-
-            <div className="mb-6 md:mb-8">
-              <div className="flex items-center gap-6 md:gap-8">
-                <span className="text-[var(--glxp-yellow)] italic text-xl md:text-2xl">
-                  02
-                </span>
-                <Link
-                  href="/info"
-                  className="text-5xl md:text-7xl lg:text-9xl text-[var(--glxp-yellow)] font-bold duration-300"
-                  onClick={onClose}
-                >
-                  PHOTO
-                </Link>
-              </div>
-            </div>
-
-            <div className="mb-6 md:mb-8">
-              <div className="flex items-center gap-6 md:gap-8">
-                <span className="text-[var(--glxp-yellow)] italic text-xl md:text-2xl">
-                  03
-                </span>
-                <Link
-                  href="/journal"
-                  className="text-5xl md:text-7xl lg:text-9xl text-[var(--glxp-yellow)] font-bold duration-300"
-                  onClick={onClose}
-                >
-                  ABOUT
-                </Link>
-              </div>
-            </div>
-
-            <div className="mb-6 md:mb-8">
-              <div className="flex items-center gap-6 md:gap-8">
-                <span className="text-[var(--glxp-yellow)] italic text-xl md:text-2xl">
-                  04
-                </span>
-                <Link
-                  href="/store"
-                  className="text-5xl md:text-7xl lg:text-9xl text-[var(--glxp-yellow)] font-bold duration-300"
-                  onClick={onClose}
-                >
-                  CONTACT
-                </Link>
-              </div>
-            </div>
+            ))}
           </nav>
-        </ResponsiveLayout>
+        </div>
       </div>
     </div>
   );

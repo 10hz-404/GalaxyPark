@@ -7,6 +7,7 @@ export default function CustomCursor() {
   const [isHoveringClickable, setIsHoveringClickable] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  // 跟随鼠标光标
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       if (cursorRef.current) {
@@ -69,10 +70,11 @@ export default function CustomCursor() {
     };
   }, [handleMouseMove, handleMouseOver, handleMouseLeave, handleMouseEnter]);
 
-  // 使用计算样式对象提高可读性
   const cursorStyle = {
+    // 在可点击元素上时，光标变大
     width: isHoveringClickable ? "60px" : "20px",
     height: isHoveringClickable ? "60px" : "20px",
+    // 移出屏幕外时隐藏光标
     opacity: isVisible ? 1 : 0,
     // 添加平滑过渡效果
     transition: "width 0.2s, height 0.2s, opacity 0.3s",
