@@ -39,17 +39,17 @@ const smileySans = localFont({
 const ibmPlexSansCondensed = localFont({
   src: [
     {
-      path: "../../public/fonts/IBMPlexSansCondensed-Medium/IBMPlexSansCondensed-Medium.ttf",
-      weight: "500",
+      path: "../../public/fonts/IBMPlexSansSC-Medium/IBMPlexSansSC-Medium.ttf",
+      weight: "600",
       style: "normal",
     },
     {
-      path: "../../public/fonts/IBMPlexSansCondensed-Medium/IBMPlexSansCondensed-Medium.otf",
-      weight: "500",
+      path: "../../public/fonts/IBMPlexSansSC-Medium/IBMPlexSansSC-Medium.otf",
+      weight: "600",
       style: "normal",
     },
   ],
-  variable: "--font-ibm-plex-sans-condensed",
+  variable: "--font-ibm-plex-sans-sc",
 });
 
 // 添加本地Made Bon Voyage字体
@@ -86,16 +86,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${ibmPlexSansCondensed.variable} ${smileySans.variable} ${madeBonVoyageRegular.variable} ${madeBonVoyageThin.variable} ${neueMachina.variable} antialiased`}
+    >
       <head>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
       </head>
-      <body
-        className={`${ibmPlexSansCondensed.variable} ${smileySans.variable} ${madeBonVoyageRegular.variable} ${madeBonVoyageThin.variable} ${neueMachina.variable} antialiased`}
-      >
+      <body>
         <Provider>
           {/* 导航栏 */}
           <Navbar />
