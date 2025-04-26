@@ -68,7 +68,7 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
                   </span>
                   <Link
                     href={menu.path}
-                    className="text-5xl xl:text-7xl lg:text-9xl text-[var(--glxp-yellow)] font-bold duration-300"
+                    className="text-5xl xl:text-9xl text-[var(--glxp-yellow)] font-bold duration-300"
                     onClick={onClose}
                   >
                     {menu.name}
