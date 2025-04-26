@@ -32,8 +32,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-english: var(--font-neue-machina);
+  --font-chinese: var(--font-ibm-plex-sans-condensed), var(--font-smiley-sans);
+  --font-made-bon-voyage: var(--font-made-bon-voyage-regular);
+  --font-made-bon-voyage-thin: var(--font-made-bon-voyage-thin);
 }
 
 html {
@@ -43,8 +45,18 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
+  /* 全局默认使用自动识别字体，对中西文分别指定字体族 */
+  font-family: var(--font-english), var(--font-chinese);
+}
+
+:lang(zh),
+:lang(zh-CN) {
+  font-family: var(--font-chinese);
+}
+
+:lang(en) {
+  font-family: var(--font-english);
 }
 
 #__next,
