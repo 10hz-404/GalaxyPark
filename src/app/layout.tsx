@@ -4,7 +4,6 @@ import "./globals.css";
 import { Provider } from "./provider";
 import { Navbar } from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
-import { Footer } from "@/components/Footer";
 
 // 添加本地NeueMachina字体作为默认英文字体
 const neueMachina = localFont({
@@ -102,10 +101,9 @@ export default function RootLayout({
           <Navbar />
 
           {/* 主体内容 */}
-          <main className="pt-20">{children}</main>
-
-          {/* 页脚 */}
-          <Footer />
+          <main className="px-6 pt-20 pb-10 text-cream xl:px-10 ">
+            <div className="max-w-md mx-auto xl:max-w-7xl">{children}</div>
+          </main>
 
           {/* 鼠标光标 - 只在xl断点(1280px)及以上显示 */}
           <div className="hidden xl:block">

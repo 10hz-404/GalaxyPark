@@ -11,8 +11,16 @@ export default function CustomCursor() {
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       if (cursorRef.current) {
-        // 使用 transform 而不是改变 top/left 来提高性能
-        cursorRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        // 计算宽高的一半以获得偏移量，使鼠标位于圆点中心
+        const width = isHoveringClickable ? 60 : 25;
+        const height = isHoveringClickable ? 60 : 25;
+        const offsetX = width / 2;
+        const offsetY = height / 2;
+
+        // 使用 transform 并应用偏移量，使鼠标位于圆心
+        cursorRef.current.style.transform = `translate(${
+          e.clientX - offsetX
+        }px, ${e.clientY - offsetY}px)`;
 
         // 首次移动鼠标时显示光标
         if (!isVisible) {
@@ -20,7 +28,7 @@ export default function CustomCursor() {
         }
       }
     },
-    [isVisible]
+    [isVisible, isHoveringClickable]
   );
 
   // 检测鼠标是否悬停在可点击元素上
@@ -72,8 +80,8 @@ export default function CustomCursor() {
 
   const cursorStyle = {
     // 在可点击元素上时，光标变大
-    width: isHoveringClickable ? "60px" : "20px",
-    height: isHoveringClickable ? "60px" : "20px",
+    width: isHoveringClickable ? "60px" : "25px",
+    height: isHoveringClickable ? "60px" : "25px",
     // 移出屏幕外时隐藏光标
     opacity: isVisible ? 1 : 0,
     // 添加平滑过渡效果

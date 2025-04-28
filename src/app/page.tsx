@@ -1,7 +1,34 @@
+import { Footer } from "@/components/Footer";
+
+/** 首页 */
 export default function Home() {
   return (
     <div>
-      <p lang="zh">品牌设计 / 视觉识别</p>
+      {/* 主体内容 */}
+      <p>
+        <br />
+        占个位置
+        <br />
+        占个位置
+        <br />
+        占个位置
+        <br />
+        占个位置
+        <br />
+        占个位置
+        <br />
+        占个位置
+        <br />
+        占个位置
+        <br />
+        占个位置
+        <br />
+        占个位置
+        <br />
+      </p>
+
+      {/* 页脚 */}
+      <Footer />
     </div>
   );
 }
