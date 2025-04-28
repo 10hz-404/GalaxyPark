@@ -37,7 +37,7 @@ export default function CustomCursor() {
     const targetTagName = target.tagName.toLowerCase();
 
     // 使用closest方法检查当前元素或其任何父元素是否包含clickable类
-    const hasClickableParent = !!target.closest(".clickable");
+    const hasClickableParent = Boolean(target.closest(".clickable"));
 
     const isClickable =
       hasClickableParent ||
@@ -64,7 +64,9 @@ export default function CustomCursor() {
 
   useEffect(() => {
     // 添加事件监听
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", (e) => {
+      requestAnimationFrame(() => handleMouseMove(e))
+    });
     document.addEventListener("mouseover", handleMouseOver);
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
