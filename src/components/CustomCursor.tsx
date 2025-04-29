@@ -6,32 +6,32 @@ export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isHoveringClickable, setIsHoveringClickable] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const isHoveringRef = useRef(false);
 
-  // 跟随鼠标光标
+  // 处理鼠标移动，直接更新位置
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
-      if (cursorRef.current) {
-        // 计算宽高的一半以获得偏移量，使鼠标位于圆点中心
-        const width = isHoveringClickable ? 60 : 25;
-        const height = isHoveringClickable ? 60 : 25;
-        const offsetX = width / 2;
-        const offsetY = height / 2;
+      if (!cursorRef.current) return;
 
-        // 使用 transform 并应用偏移量，使鼠标位于圆心
-        cursorRef.current.style.transform = `translate(${
-          e.clientX - offsetX
-        }px, ${e.clientY - offsetY}px)`;
+      const width = isHoveringRef.current ? 60 : 25;
+      const height = isHoveringRef.current ? 60 : 25;
+      const offsetX = width / 2;
+      const offsetY = height / 2;
 
-        // 首次移动鼠标时显示光标
-        if (!isVisible) {
-          setIsVisible(true);
-        }
+      // 直接更新位置，不使用插值
+      cursorRef.current.style.transform = `translate3d(${
+        e.clientX - offsetX
+      }px, ${e.clientY - offsetY}px, 0)`;
+
+      // 首次移动鼠标时显示光标
+      if (!isVisible) {
+        setIsVisible(true);
       }
     },
-    [isVisible, isHoveringClickable]
+    [isVisible]
   );
 
-  // 检测鼠标是否悬停在可点击元素上
+  // 使用节流处理检测鼠标是否悬停在可点击元素上
   const handleMouseOver = useCallback((e: MouseEvent) => {
     const target = e.target as HTMLElement;
     const targetTagName = target.tagName.toLowerCase();
@@ -49,7 +49,11 @@ export default function CustomCursor() {
       target.hasAttribute("href") ||
       target.getAttribute("role") === "button";
 
-    setIsHoveringClickable(isClickable);
+    // 使用ref跟踪状态以避免闭包问题
+    if (isClickable !== isHoveringRef.current) {
+      isHoveringRef.current = isClickable;
+      setIsHoveringClickable(isClickable);
+    }
   }, []);
 
   // 鼠标离开页面处理函数
@@ -63,33 +67,50 @@ export default function CustomCursor() {
   }, []);
 
   useEffect(() => {
-    // 添加事件监听
-    window.addEventListener("mousemove", (e) => {
-      requestAnimationFrame(() => handleMouseMove(e))
+    // 使用passive: true提高事件监听性能
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    // 使用防抖优化mouseover事件，减少不必要的状态更新
+    let debounceTimer: NodeJS.Timeout;
+    const debouncedMouseOver = (e: MouseEvent) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => handleMouseOver(e), 50);
+    };
+
+    document.addEventListener("mouseover", debouncedMouseOver, {
+      passive: true,
     });
-    document.addEventListener("mouseover", handleMouseOver);
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
 
     // 清理函数
     return () => {
+      clearTimeout(debounceTimer);
+
       window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseover", debouncedMouseOver);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
     };
   }, [handleMouseMove, handleMouseOver, handleMouseLeave, handleMouseEnter]);
 
+  // 应用硬件加速和优化的CSS
+  const cursorSize = isHoveringClickable ? "60px" : "25px";
+
   const cursorStyle = {
-    // 在可点击元素上时，光标变大
-    width: isHoveringClickable ? "60px" : "25px",
-    height: isHoveringClickable ? "60px" : "25px",
-    // 移出屏幕外时隐藏光标
+    width: cursorSize,
+    height: cursorSize,
     opacity: isVisible ? 1 : 0,
-    // 添加平滑过渡效果
     transition: "width 0.2s, height 0.2s, opacity 0.3s",
-    // 添加反色效果
     mixBlendMode: "difference" as const,
+    // 使用硬件加速
+    willChange: "transform",
+    // 初始位置设置为0，防止初始闪烁
+    position: "fixed" as const,
+    top: 0,
+    left: 0,
+    transform: "translate3d(0px, 0px, 0)",
+    pointerEvents: "none" as const,
   };
 
   return <div ref={cursorRef} className="cursor-dot" style={cursorStyle} />;
