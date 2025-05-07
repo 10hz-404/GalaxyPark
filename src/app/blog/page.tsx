@@ -1,10 +1,10 @@
 import React from "react";
+import { PostList } from "@/components/Post";
 
 export default function BlogRoute() {
   return (
-    <div>
-      <h1>Blog Page</h1>
-      <p>Welcome to the blog page!</p>
+    <div className="container mx-auto slide-enter-content">
+      <PostList />
     </div>
   );
 }

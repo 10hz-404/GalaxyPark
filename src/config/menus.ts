@@ -3,6 +3,10 @@
 */
 export default [
     {
+        name: "HOME",
+        path: "/",
+    },
+    {
         name: "BLOG",
         path: "/blog",
     },
@@ -13,9 +17,5 @@ export default [
     {
         name: "ABOUT",
         path: "/about",
-    },
-    {
-        name: "CONTACT",
-        path: "/contact",
-    },
+    }
 ]

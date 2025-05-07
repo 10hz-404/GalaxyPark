@@ -67,12 +67,9 @@ body {
   font-family: var(--font-english);
 }
 
-.font-made-bon-voyage {
-  font-family: var(--font-made-bon-voyage-regular), sans-serif !important;
-}
-
-.font-made-bon-voyage-thin {
-  font-family: var(--font-made-bon-voyage-thin), sans-serif !important;
+/* 博客md的字体 */
+:lang(blog) {
+  font-family: var(--font-ibm-plex-sans-sc), system-ui;
 }
 
 /* END ==========中英文字体配置============= */

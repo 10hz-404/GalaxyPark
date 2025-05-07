@@ -26,9 +26,6 @@ export default function Home() {
         占个位置
         <br />
       </p>
-
-      {/* 页脚 */}
-      <Footer />
     </div>
   );
 }

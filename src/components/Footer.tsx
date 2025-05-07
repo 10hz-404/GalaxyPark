@@ -30,7 +30,7 @@ export const Footer = () => {
             </div>
 
             <div className="flex-shrink-0">
-              <div className="flex flex-col items-end mt-30">
+              <div className="flex flex-col items-end mt-25">
                 {menus.map((menu) => (
                   <Link key={menu.name} href={menu.path} className="mb-8">
                     {menu.name}
@@ -45,35 +45,15 @@ export const Footer = () => {
       {/* 移动端 Logo */}
       <div className="mb-4 xl:hidden">
         <svg
-          width="200"
+          width="250"
           height="80"
-          viewBox="0 0 500 60"
+          viewBox="0 0 550 60"
           className="fill-current text-cream"
         >
           <text x="0" y="60" fontSize="80" fontWeight="bold">
             Galaxy Park
           </text>
         </svg>
-      </div>
-
-      {/* 社交媒体链接 - 移动端 */}
-      <div className="flex gap-4 mb-10 xl:hidden">
-        <Link
-          href="https://www.xiaohongshu.com/user/profile/5dbd03f700000000010089b2"
-          className="flex-1 px-4 py-2 text-sm text-center transition-colors border rounded-full border-cream hover:bg-cream"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          RedNote
-        </Link>
-        <Link
-          href="https://weibo.com/u/7994883037"
-          className="flex-1 px-4 py-2 text-sm text-center transition-colors border rounded-full border-cream hover:bg-cream"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          WeiBo
-        </Link>
       </div>
 
       {/* 底部信息 - 响应式设计 */}
@@ -85,11 +65,26 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* 地址和版权 */}
-        <div className="mb-6 text-sm xl:mb-0 xl:text-base">
+        {/* 地址、版权、社交媒体链接 - 移动端 */}
+        <div className="text-sm xl:mb-0 xl:text-base">
+          {/* 地址 */}
           <p className="mb-6 xl:mb-0">
             HERE, Xiashan District, Zhanjiang City, Guangdong Province, China
           </p>
+
+          {/* 社交媒体链接 */}
+          <div className="flex gap-4 mb-6 xl:hidden">
+            <Link
+              href="https://www.xiaohongshu.com/user/profile/5dbd03f700000000010089b2"
+              className="flex-1 px-4 py-2 text-sm text-center transition-colors border rounded-full border-cream hover:bg-cream"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              RedNote
+            </Link>
+          </div>
+
+          {/* 版权 */}
           <p>© {currentYear} Only GalaxyPark Limited</p>
         </div>
 
@@ -102,14 +97,6 @@ export const Footer = () => {
             rel="noopener noreferrer"
           >
             RedNote
-          </Link>
-          <Link
-            href="https://weibo.com/u/7994883037"
-            className="px-6 py-2 transition-colors border rounded-full border-cream hover:bg-cream"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            WeiBo
           </Link>
         </div>
       </div>
