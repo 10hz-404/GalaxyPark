@@ -2,10 +2,9 @@
 import { useEventListener } from "@/use/eventListener";
 import { Image, Modal, ModalBody, ModalContent } from "@heroui/react";
 import { useRouter } from "next/navigation";
-import { useEvent } from "react-use";
 import React, { useEffect, useRef } from "react";
-import styles from "./post-view.module.css";
-import { DraftTips } from "./DraftTips";
+import { useEvent } from "react-use";
+import styles from "./WrapperPost.module.css";
 
 interface WrapperPostProps extends React.PropsWithChildren {
   content?: React.ReactNode;
@@ -81,7 +80,6 @@ export function WrapperPost({
   return (
     <div className={`${styles.article} slide-enter-content`}>
       <ImagePreview />
-      <DraftTips draft={frontmatter?.draft} />
       <article ref={contentRef}>{content}</article>
       {children}
     </div>

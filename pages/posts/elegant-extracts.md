@@ -1,11 +1,128 @@
 ---
-title: 摘录
-author: Clover
-date: 2024-04-10 15:28:06
-categories: essay
-pid: 8976842
+title: Markdown 示例
+tags: example
+lang: zh-CN
+date: 2024-08-23 13:39:27
+categories: learn
+pid: 39339a477aea1d494959790e4c7262679b64
+last-edit: 2024-04-15 14:23:49
+duration: 10min
+author: Clover You
 ---
+[[toc]]
 
-1. 你好像站在那段岁月看了我一眼，就把我永远困在遗憾里面。（来自歌手**一只羊**《来不及告别》中的歌词摘录）
-2. 花一点时间，折腾一点小东西，收获一个没多大用的成果，感受到巨大的快乐（来源于少数派）
-3. 故人归，欲迎，久无音讯。正担忧，谁料此心断前情!（来自米游社用户**木俩琳**）
+This is an external link <a href="http://www.ctong.top" target="_blank">Click</a> on it to go to the destination
+
+As you can see, this is an interoperable butto! Try click it!
+
+# Markdown syntax guide
+
+## Headers
+
+# This is a Heading h1
+
+## This is a Heading h2
+
+###### This is a Heading h6
+
+## Emphasis
+
+*This text will be italic*
+
+*This will also be italic*
+
+**This text will be bold**
+
+**This will also be bold**
+
+*You **can** combine them*
+
+## Lists
+
+### Unordered
+
+* Item 1
+* Item 2
+* Item 2a
+* Item 2b
+
+### Ordered
+
+1. Item 1
+2. Item 2
+3. Item 3
+    1. Item 3a
+    2. Item 3b
+
+## Images
+
+<img src="https://markdownlivepreview.com/image/sample.webp" alt="This is an alt text." title="This is a sample image." className="!w-auto" />
+
+## Links
+
+You may be using [Markdown Live Preview](https://markdownlivepreview.com/).
+
+## Blockquotes
+
+> Markdown is a lightweight markup language with plain-text-formatting syntax, created in 2004 by John Gruber with Aaron Swartz.
+>
+>> Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.
+
+## Tables
+
+| Left columns | Right columns |
+| ------------ | :-----------: |
+| left foo     |   right foo   |
+| left bar     |   right bar   |
+| left baz     |   right baz   |
+
+## Blocks of code
+
+```
+let message = 'Hello world';
+alert(message);
+```
+
+render code by <a class="markdown-magic-link" href="https://shiki.style" target="_blank" rel="noopener">
+  <img class="markdown-magic-link-image" src="https://avatars.githubusercontent.com/u/69196822?v=4" />
+  @Shiki
+</a>
+
+```rust
+use std::str::FromStr;
+
+use proto_demo::user::{self, SigninRequest};
+use tokio::runtime::Builder;
+use tonic::{metadata::MetadataValue, Request};
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+  let mut cli = user::user_client::UseClient::connect("http://[::1]:8081")
+  .await?;
+
+  let mut req = Request::new(SigninRequest {
+      email: "cloveryou02@gmail.com".to_string(),
+      password: "123456".to_string(),
+  });
+
+  let metadata = req.metadata_mut();
+
+  let token = MetadataValue::from_str("authentication token")?;
+  metadata.append("authentication", token);
+
+  let res = cli.signin(req).await?;
+  let res = res.get_ref();
+
+  println!("gRPC response result: {:?}", res);
+
+  Ok(())
+}
+```
+
+## Inline code
+
+This web site is using `markedjs/marked`.
+
+::: warning
+*here be dragons*
+:::
