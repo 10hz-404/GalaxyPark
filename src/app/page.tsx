@@ -1,5 +1,3 @@
-import { Footer } from "@/components/Footer";
-
 /** 首页 */
 export default function Home() {
   return (
