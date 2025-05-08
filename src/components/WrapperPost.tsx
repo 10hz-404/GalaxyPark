@@ -11,11 +11,7 @@ interface WrapperPostProps extends React.PropsWithChildren {
   frontmatter?: PostFrontmatter;
 }
 
-export function WrapperPost({
-  children,
-  content,
-  frontmatter,
-}: WrapperPostProps) {
+export function WrapperPost({ children, content }: WrapperPostProps) {
   const router = useRouter();
   const contentRef = useRef<HTMLElement>(null);
 

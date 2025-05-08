@@ -28,7 +28,7 @@ export async function getPostList() {
     const raw = await fs.readFile(file, 'utf-8')
     const { data } = matter(raw)
 
-    const [_, fileFullPath] = file.match(/pages\/posts\/(.*)\.md$/) ?? []
+    const [, fileFullPath] = file.match(/pages\/posts\/(.*)\.md$/) ?? []
     const fileNameAlias = fileFullPath.replaceAll('/', '-')
 
     return {
@@ -106,7 +106,7 @@ async function getPages() {
     const raw = await fs.readFile(file, 'utf-8')
     const { data } = matter(raw)
 
-    const [_, fileFullPath] = file.match(/pages\/(.*)\.md/) ?? []
+    const [, fileFullPath] = file.match(/pages\/(.*)\.md/) ?? []
     const fileNameAlias = fileFullPath.replaceAll('/', '-')
 
     return {
