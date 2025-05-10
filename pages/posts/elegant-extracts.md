@@ -15,6 +15,8 @@ This is an external link <a href="http://www.ctong.top" target="_blank">Click</a
 
 As you can see, this is an interoperable butto! Try click it!
 
+这是一段测试的中文文字，用来显示中文字体效果。
+
 # Markdown syntax guide
 
 ## Headers

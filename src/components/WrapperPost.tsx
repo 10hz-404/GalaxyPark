@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import { useEvent } from "react-use";
 import styles from "./WrapperPost.module.css";
+import "@/app/markdown.css";
 
 interface WrapperPostProps extends React.PropsWithChildren {
   content?: React.ReactNode;
@@ -85,7 +86,6 @@ export function WrapperPost({ children, content }: WrapperPostProps) {
 function ImagePreview() {
   const [imagePreviewState, setImagePreviewState] = React.useState(false);
   const imageModel = React.useRef<HTMLImageElement>(null);
-  let invertClass = "filter dark:invert";
 
   useEvent("click", (e) => {
     const path = Array.from(e.composedPath());
@@ -96,8 +96,6 @@ function ImagePreview() {
     if (first.classList.contains("no-preview")) return;
 
     imageModel.current = first as HTMLImageElement;
-
-    if (!first.classList.contains("dark:invert")) invertClass = "";
 
     setImagePreviewState(true);
   });
@@ -122,7 +120,7 @@ function ImagePreview() {
             src={imageModel.current?.src ?? ""}
             alt={imageModel.current?.alt ?? ""}
             removeWrapper
-            className={`max-w-full max-h-full z-10 bg-cover ${invertClass}`}
+            className={`max-w-full max-h-full z-10 bg-cover`}
             onClick={(e) => e.stopPropagation()}
           />
         </ModalBody>

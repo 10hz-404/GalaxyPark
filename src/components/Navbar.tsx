@@ -15,18 +15,6 @@ export function Navbar() {
     setMounted(true);
   }, []);
 
-  // 控制菜单打开时页面滚动
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden"; // 当菜单打开时，禁止页面滚动
-    } else {
-      document.body.style.overflow = ""; // 当菜单关闭时，恢复页面滚动
-    }
-    return () => {
-      document.body.style.overflow = ""; // 组件卸载时恢复滚动
-    };
-  }, [isMenuOpen]);
-
   const handleCloseMenu = () => {
     setIsMenuOpen(false);
   };

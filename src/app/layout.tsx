@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
 import { Provider } from "./provider";
 import { Navbar } from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer";
+import "./globals.css";
 
 // 添加本地NeueMachina字体作为默认英文字体
 const neueMachina = localFont({
