@@ -86,7 +86,7 @@ alert(message);
 ```
 
 render code by <a class="markdown-magic-link" href="https://shiki.style" target="_blank" rel="noopener">
-  <img class="markdown-magic-link-image" src="https://avatars.githubusercontent.com/u/69196822?v=4" />
+  <img class="markdown-magic-link-image no-img" src="https://avatars.githubusercontent.com/u/69196822?v=4" />
   @Shiki
 </a>
 

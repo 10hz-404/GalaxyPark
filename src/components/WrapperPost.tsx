@@ -94,6 +94,11 @@ function ImagePreview() {
     if (!(first instanceof HTMLElement)) return;
     if (first.tagName !== "IMG") return;
     if (first.classList.contains("no-preview")) return;
+    if (first.classList.contains("no-img")) return;
+
+    // 判断该元素是否在MD容器内
+    const article = document.querySelector(".slide-enter-content article");
+    if (!article || !article.contains(first)) return;
 
     imageModel.current = first as HTMLImageElement;
 

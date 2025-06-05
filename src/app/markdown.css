@@ -11,15 +11,9 @@
   width: 100px;
 }
 
-@media (min-width: 1024px) {
-  .table-of-contents {
-    display: flex;
-    width: 200px;
-  }
-}
-
 @media (min-width: 1280px) {
   .table-of-contents {
+    display: flex;
     width: 300px;
   }
 }

@@ -102,12 +102,14 @@ export default function RootLayout({
           <Navbar />
 
           <main className="px-6 pt-20 pb-10 text-cream xl:px-10 ">
-            <div className="max-w-md mx-auto xl:max-w-7xl">
+            <div className="max-w-md mx-auto mt-5 xl:max-w-7xl">
               {/* 主体内容 */}
               {children}
 
               {/* 页脚 */}
-              <Footer />
+              <div className="block xl:hidden">
+                <Footer />
+              </div>
             </div>
           </main>
 

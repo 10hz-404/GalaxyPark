@@ -1,7 +1,6 @@
 import Shiki from "@shikijs/markdown-it";
 import anchor from "markdown-it-anchor";
 import TOC from "markdown-it-table-of-contents";
-// @ts-check
 import Markdown from "unplugin-react-markdown/webpack";
 
 import { slugify } from "./scripts/slugify.js";
