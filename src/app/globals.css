@@ -6,7 +6,7 @@
   --foreground: #f0ebd7;
   --glxp-beige: #f0ebd7;
   --glxp-black: #161616;
-  --glxp-yellow: #ffc738;
+  --glxp-yellow: #ffdd00;
   --glxp-green: #24ee79;
   --glxp-pink: #ffb8b8;
   --glxp-blue: #819bfe;
@@ -20,7 +20,7 @@
     --foreground: #f0ebd7;
     --glxp-beige: #f0ebd7;
     --glxp-black: #161616;
-    --glxp-yellow: #ffc738;
+    --glxp-yellow: #ffdd00;
     --glxp-green: #24ee79;
     --glxp-pink: #ffb8b8;
     --glxp-blue: #819bfe;
@@ -92,7 +92,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: var(--glxp-orange);
+  background-color: var(--glxp-yellow);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -112,6 +112,6 @@ input[type="submit"],
 
 /* 选中文字样式 */
 ::selection {
-  background-color: var(--glxp-orange);
-  /* color: var(--glxp-black); */
+  background-color: var(--glxp-yellow);
+  color: var(--glxp-black);
 }

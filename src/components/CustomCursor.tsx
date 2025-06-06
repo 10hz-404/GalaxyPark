@@ -1,111 +1,94 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const [isHoveringClickable, setIsHoveringClickable] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const isHoveringRef = useRef(false);
-
-  // 处理鼠标移动，直接更新位置
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (!cursorRef.current) return;
-
-      const width = isHoveringRef.current ? 60 : 25;
-      const height = isHoveringRef.current ? 60 : 25;
-      const offsetX = width / 2;
-      const offsetY = height / 2;
-
-      // 直接更新位置，不使用插值
-      cursorRef.current.style.transform = `translate3d(${
-        e.clientX - offsetX
-      }px, ${e.clientY - offsetY}px, 0)`;
-
-      // 首次移动鼠标时显示光标
-      if (!isVisible) {
-        setIsVisible(true);
-      }
-    },
-    [isVisible]
-  );
-
-  // 使用节流处理检测鼠标是否悬停在可点击元素上
-  const handleMouseOver = useCallback((e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-    const targetTagName = target.tagName.toLowerCase();
-
-    // 使用closest方法检查当前元素或其任何父元素是否包含clickable类
-    const hasClickableParent = Boolean(target.closest(".clickable"));
-
-    const isClickable =
-      hasClickableParent ||
-      targetTagName === "a" ||
-      targetTagName === "button" ||
-      (targetTagName === "input" && target.getAttribute("type") === "submit") ||
-      target.classList.contains("cursor-pointer") ||
-      target.closest("a") !== null ||
-      target.hasAttribute("href") ||
-      target.getAttribute("role") === "button";
-
-    // 使用ref跟踪状态以避免闭包问题
-    if (isClickable !== isHoveringRef.current) {
-      isHoveringRef.current = isClickable;
-      setIsHoveringClickable(isClickable);
-    }
-  }, []);
-
-  // 鼠标离开页面处理函数
-  const handleMouseLeave = useCallback(() => {
-    setIsVisible(false);
-  }, []);
-
-  // 鼠标进入页面处理函数
-  const handleMouseEnter = useCallback(() => {
-    setIsVisible(true);
-  }, []);
+  // 用于记录光标可见性，避免不必要的 style 赋值
+  const visibleRef = useRef(false);
+  // 用于 requestAnimationFrame 节流
+  const rafRef = useRef<number | null>(null);
+  // 记录上一次位置，避免重复赋值
+  const lastPos = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
-    // 使用passive: true提高事件监听性能
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    const width = 25;
+    const height = 25;
+    const offsetX = width / 2;
+    const offsetY = height / 2;
 
-    // 使用防抖优化mouseover事件，减少不必要的状态更新
-    let debounceTimer: NodeJS.Timeout;
-    const debouncedMouseOver = (e: MouseEvent) => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => handleMouseOver(e), 50);
+    // 只在必要时更新 transform
+    const updateCursor = (x: number, y: number) => {
+      if (!cursorRef.current) return;
+      if (
+        !lastPos.current ||
+        lastPos.current.x !== x ||
+        lastPos.current.y !== y
+      ) {
+        cursorRef.current.style.transform = `translate3d(${x - offsetX}px, ${
+          y - offsetY
+        }px, 0)`;
+        lastPos.current = { x, y };
+      }
+      if (!visibleRef.current) {
+        cursorRef.current.style.opacity = "1";
+        visibleRef.current = true;
+      }
     };
 
-    document.addEventListener("mouseover", debouncedMouseOver, {
-      passive: true,
-    });
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mouseenter", handleMouseEnter);
+    let pendingX = 0,
+      pendingY = 0,
+      hasPending = false;
+    const onMouseMove = (e: MouseEvent) => {
+      pendingX = e.clientX;
+      pendingY = e.clientY;
+      if (!hasPending) {
+        hasPending = true;
+        rafRef.current = window.requestAnimationFrame(() => {
+          updateCursor(pendingX, pendingY);
+          hasPending = false;
+        });
+      }
+    };
 
-    // 清理函数
+    const onMouseLeave = () => {
+      if (cursorRef.current && visibleRef.current) {
+        cursorRef.current.style.opacity = "0";
+        visibleRef.current = false;
+      }
+    };
+    const onMouseEnter = () => {
+      if (cursorRef.current && !visibleRef.current) {
+        cursorRef.current.style.opacity = "1";
+        visibleRef.current = true;
+      }
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseleave", onMouseLeave);
+    document.addEventListener("mouseenter", onMouseEnter);
+
+    // 初始化隐藏
+    if (cursorRef.current) {
+      cursorRef.current.style.opacity = "0";
+      visibleRef.current = false;
+    }
+
     return () => {
-      clearTimeout(debounceTimer);
-
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseover", debouncedMouseOver);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mouseenter", handleMouseEnter);
+      window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseenter", onMouseEnter);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [handleMouseMove, handleMouseOver, handleMouseLeave, handleMouseEnter]);
-
-  // 应用硬件加速和优化的CSS
-  const cursorSize = isHoveringClickable ? "60px" : "25px";
+  }, []);
 
   const cursorStyle = {
-    width: cursorSize,
-    height: cursorSize,
-    opacity: isVisible ? 1 : 0,
-    transition: "width 0.2s, height 0.2s, opacity 0.3s",
+    width: "25px",
+    height: "25px",
+    opacity: 0,
+    transition: "opacity 0.2s cubic-bezier(.4,0,.2,1)",
     mixBlendMode: "difference" as const,
-    // 使用硬件加速
-    willChange: "transform",
-    // 初始位置设置为0，防止初始闪烁
+    willChange: "transform, opacity",
     position: "fixed" as const,
     top: 0,
     left: 0,
