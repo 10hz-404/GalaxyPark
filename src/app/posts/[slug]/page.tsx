@@ -59,7 +59,7 @@ export default async function PostPage(props: Props) {
   }
 
   return (
-    <div className="mx-auto xl:max-w-4xl">
+    <div lang="zh-CN" className="mx-auto xl:max-w-4xl">
       <div className="mb-8 prose">
         <h1 className="text-4xl">{frontmatter.title}</h1>
         <p className="opacity-50">{getLocaleString(frontmatter.date, "en")}</p>
