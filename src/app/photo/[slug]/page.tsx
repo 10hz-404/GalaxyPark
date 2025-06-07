@@ -9,7 +9,7 @@ interface Props {
 
 // 动态元数据
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const photos = await getPhotoList();
   const photo = photos.find((p) => slugify(p.title) === slug);
   if (!photo) return { title: "Galaxy Park" };
@@ -25,7 +25,7 @@ export async function generateStaticParams() {
 }
 
 export default async function PhotoPage({ params }: Props) {
-  const { slug } = params;
+  const { slug } = await params;
   const photos = await getPhotoList();
   const photo = photos.find((p) => slugify(p.title) === slug);
   if (!photo) return notFound();
