@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPhotoList, slugify } from "@/core/photo";
-import Image from "next/image";
 
 interface Props {
   params: { slug: string };
