@@ -1,0 +1,12 @@
+[title]
+"Muggy Summer Vacation"
+[date]
+"2025-06-07"
+[photos]
+"https://i.pinimg.com/736x/e3/0b/45/e30b458163dbc1d2e59c406dc376ef97.jpg",
+"https://i.pinimg.com/736x/56/0c/54/560c54783046a40e39446bfb95ac3d14.jpg",
+"https://i.pinimg.com/736x/8c/9b/2b/8c9b2b56804720696c9a040ffc9c030d.jpg"
+[content]
+我是否可将你比作夏日？ 你却更可爱、更温和： 粗风撼动五月心蕾初绽， 夏日租期却又匆匆匆促： 有时炎阳骄阳炽烈难当， 常令金颜蒙尘失光辉； 凡所有美总有褪色时， 或因命数或随岁月移； 但你的永夏永不凋零， 也永不丧失那倾城容颜； 死神也难夸你入他阴影， 当你藉这诗行常驻人间： 只要人类尚能呼吸视物， 这诗便存，此诗令你永生。
+
+Shall I compare thee to a summer’s day? Thou art more lovely and more temperate: Rough winds do shake the darling buds of May, And summer’s lease hath all too short a date: Sometime too hot the eye of heaven shines, And often is his gold complexion dimm’d; And every fair from fair sometime declines, By chance or nature’s changing course untrimm’d; But thy eternal summer shall not fade, Nor lose possession of that fair thou owest; Nor shall Death brag thou wander’st in his shade, When in eternal lines to time thou growest: So long as men can breathe or eyes can see, So long lives this, and this gives life to thee.
