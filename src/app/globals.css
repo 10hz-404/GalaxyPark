@@ -3,7 +3,7 @@
 
 :root {
   --background: #161616;
-  --foreground: #f0ebd7;
+  --foreground: #fbfbfb;
   --glxp-beige: #f0ebd7;
   --glxp-black: #161616;
   --glxp-yellow: #ffdd00;
@@ -17,7 +17,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #161616;
-    --foreground: #f0ebd7;
+    --foreground: #fbfbfb;
     --glxp-beige: #f0ebd7;
     --glxp-black: #161616;
     --glxp-yellow: #ffdd00;
