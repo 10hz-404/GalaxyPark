@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { getPhotoList, slugify } from "@/core/photo";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{
+    slug: string;
+  }>;
 }
 
 // 动态元数据
