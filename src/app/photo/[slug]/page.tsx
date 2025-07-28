@@ -43,7 +43,7 @@ export default async function PhotoPage({ params }: Props) {
       </div>
 
       {/* 右侧滚动内容区 */}
-      <div className="w-full space-y-6 xl:w-2/3">
+      <div className="w-full xl:w-2/3">
         {photo.photoUrls.map((url: string, idx: number) => (
           <img
             key={idx}
