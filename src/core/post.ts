@@ -7,7 +7,7 @@ const IsPro = process.env.NODE_ENV === 'production'
 const IsDev = process.env.NODE_ENV === 'development'
 
 async function getMarkdownFiles(path: string) {
-  const files = await fg(path)
+  const files = await fg(path);
 
   return files.filter((it) => {
     if (!IsPro)
@@ -22,13 +22,13 @@ export async function getPostList() {
   if (!IsDev && __POSTS)
     return __POSTS
 
-  const files = await getMarkdownFiles('pages/posts/*.md')
+  const files = await getMarkdownFiles('content/posts/*.md')
 
   const posts = await Promise.all(files.map<Promise<PostFrontmatter>>(async (file) => {
     const raw = await fs.readFile(file, 'utf-8')
     const { data } = matter(raw)
 
-    const [, fileFullPath] = file.match(/pages\/posts\/(.*)\.md$/) ?? []
+    const [, fileFullPath] = file.match(/content\/posts\/(.*)\.md$/) ?? []
     const fileNameAlias = fileFullPath.replaceAll('/', '-')
 
     return {
@@ -100,13 +100,13 @@ export async function getCateforieTotal() {
 }
 
 async function getPages() {
-  const files = await getMarkdownFiles('pages/*.md')
+  const files = await getMarkdownFiles('content/*.md')
 
   return await Promise.all(files.map(async (file) => {
     const raw = await fs.readFile(file, 'utf-8')
     const { data } = matter(raw)
 
-    const [, fileFullPath] = file.match(/pages\/(.*)\.md/) ?? []
+    const [, fileFullPath] = file.match(/content\/(.*)\.md/) ?? []
     const fileNameAlias = fileFullPath.replaceAll('/', '-')
 
     return {

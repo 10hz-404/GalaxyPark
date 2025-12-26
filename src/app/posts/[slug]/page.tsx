@@ -39,7 +39,7 @@ export async function generateStaticParams() {
 
 async function getPost(slug: string) {
   try {
-    return await import(`@/../pages/posts/${slug}.md`);
+    return await import(`@/../content/posts/${slug}.md`);
   } catch (err) {
     console.error(err);
     return undefined;

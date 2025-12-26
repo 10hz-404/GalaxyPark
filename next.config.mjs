@@ -14,9 +14,7 @@ function parseMetaString(_metaString, _code, lang) {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  experimental: {
-    reactCompiler: true,
-  },
+  reactCompiler: true,
   webpack: (config) => {
     config.plugins.push(
       Markdown({

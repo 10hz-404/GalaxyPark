@@ -5,7 +5,7 @@ const IsPro = process.env.NODE_ENV === "production";
 const IsDev = process.env.NODE_ENV === "development";
 
 async function getPhotoFiles() {
-  const files = await fg("pages/photos/*.txt");
+  const files = await fg("content/photos/*.txt");
 
   return files.filter((it) => {
     if (!IsPro) return true;
