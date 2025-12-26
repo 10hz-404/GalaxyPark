@@ -14,6 +14,9 @@ function parseMetaString(_metaString, _code, lang) {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
+  images: {
+    unoptimized: true,
+  },
   reactCompiler: true,
   webpack: (config) => {
     config.plugins.push(
