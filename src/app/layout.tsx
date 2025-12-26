@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Provider } from "./provider";
 import { Navbar } from "@/components/Navbar";
+import { WeChatGuide } from "@/components/WeChatGuide";
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -100,6 +101,7 @@ export default function RootLayout({
         <Provider>
           {/* 导航栏 */}
           <Navbar />
+          <WeChatGuide />
 
           <main className="px-6 pt-20 pb-10 text-cream xl:px-10 ">
             <div className="max-w-md mx-auto mt-5 xl:max-w-7xl">
