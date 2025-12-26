@@ -96,6 +96,10 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
+        {/* 预加载首页 preview 图片，提前开始下载 */}
+        <link rel="preload" as="image" href="/content/Home-preview.jpg" />
+        {/* 原图 3MB，使用较低优先级预加载，不阻塞其他资源 */}
+        <link rel="preload" as="image" href="/content/Home.jpeg" fetchPriority="low" />
       </head>
       <body>
         <Provider>

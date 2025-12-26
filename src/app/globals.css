@@ -41,6 +41,16 @@ html {
   background: var(--background);
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -115,3 +125,46 @@ input[type="submit"],
   background-color: var(--glxp-yellow);
   color: var(--glxp-black);
 }
+
+/* START ==========首页预加载层响应式样式============= */
+/* 移动端：居中 + 旋转90度 */
+.home-preload-blur {
+  transform: translate(-50%, -50%) rotate(90deg) scale(1.1);
+}
+.home-preload-preview {
+  transform: translate(-50%, -50%) rotate(90deg) scale(1.02);
+}
+.home-preload-intermediate {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* PC端（xl: 1280px+）：全屏覆盖，无旋转 */
+@media (min-width: 1280px) {
+  .home-preload-blur,
+  .home-preload-preview {
+    top: 0 !important;
+    left: 0 !important;
+    transform: none;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .home-preload-blur {
+    filter: blur(20px);
+    transform: scale(1.1);
+  }
+  .home-preload-preview {
+    filter: blur(8px);
+    transform: scale(1.02);
+  }
+  .home-preload-intermediate {
+    top: 0 !important;
+    left: 0 !important;
+    transform: none;
+  }
+  .home-preload-intermediate img {
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+/* END ==========首页预加载层响应式样式============= */

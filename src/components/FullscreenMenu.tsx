@@ -26,7 +26,7 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
               <div className="flex-shrink-0">
                 <div className="flex items-center cursor-pointer">
                   <Image
-                    src="/vercel.svg"
+                    src="/logo.svg"
                     alt="Galaxy Park Logo"
                     width={120}
                     height={40}
