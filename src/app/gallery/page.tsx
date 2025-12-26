@@ -6,23 +6,24 @@ export default async function Gallery() {
   return (
     <ul className="space-y-6">
       {photos.map((photo, idx) => (
-        <li key={idx} className="border-b pb-4">
-          <Link href={`/photo/${slugify(photo.title)}`} className="block group">
+        <li key={idx} className="pb-4">
+          <Link href={`/photo/${slugify(photo.title)}`} className="block">
             <div className="flex items-center gap-4">
-              {photo.photoUrls[0] && (
-                <img
-                  src={photo.photoUrls[0]}
-                  alt={photo.title}
-                  className="w-24 h-24 object-cover rounded shadow-md group-hover:scale-105 transition-transform"
-                />
-              )}
-              <div>
-                <div className="text-lg font-bold group-hover:text-blue-600 transition-colors">
+              <div className="flex-1 w-1/3">
+                <div className="text-4xl font-bold transition-colors">
                   {photo.title}
                 </div>
-                <div className="text-sm text-gray-500 mb-1">{photo.date}</div>
-                <div className="text-sm text-gray-700 line-clamp-2">
-                  {photo.content?.slice(0, 40)}
+                <div className="mb-1 text-sm">{photo.date}</div>
+              </div>
+              <div className="flex justify-end w-2/3 flex-2 group/image-parent">
+                <div className="relative w-full aspect-[4/3] flex items-center justify-center overflow-hidden group">
+                  {photo.photoUrls[0] && (
+                    <img
+                      src={photo.photoUrls[0]}
+                      alt={photo.title}
+                      className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                    />
+                  )}
                 </div>
               </div>
             </div>

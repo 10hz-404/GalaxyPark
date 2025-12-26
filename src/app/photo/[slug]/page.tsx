@@ -37,13 +37,14 @@ export default async function PhotoPage({ params }: Props) {
         lang="zh-CN"
         className="flex flex-col w-full xl:w-1/3 pr-0 xl:pr-5 mb-8 xl:mb-0 xl:sticky xl:top-[100px] xl:h-[calc(100vh-140px)]"
       >
-        <h1 className="mb-2 text-2xl leading-tight">{photo.title}</h1>
-        <div className="mb-4 text-sm text-gray-500">{photo.date}</div>
+        <h1 className="mb-2 text-3xl xl:text-3xl">{photo.title}</h1>
+        <div className="mb-6 text-sm ">{photo.date}</div>
         <p className="leading-relaxed whitespace-pre-line">{photo.content}</p>
       </div>
 
       {/* 右侧滚动内容区 */}
-      <div className="w-full space-y-6 xl:w-2/3">
+      <div className="w-full xl:w-2/3">
+      {/* <div className="w-full space-y-6 xl:w-2/3"> 图片之间有间隔 */}
         {photo.photoUrls.map((url: string, idx: number) => (
           <img
             key={idx}
