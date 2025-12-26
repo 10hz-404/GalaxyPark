@@ -6,6 +6,7 @@ import { WeChatGuide } from "@/components/WeChatGuide";
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next"
 
 // 添加本地NeueMachina字体作为默认英文字体
 const neueMachina = localFont({
@@ -102,6 +103,7 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/content/Home.jpeg" fetchPriority="low" />
       </head>
       <body>
+        <Analytics />
         <Provider>
           {/* 导航栏 */}
           <Navbar />
