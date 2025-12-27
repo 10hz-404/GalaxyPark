@@ -25,7 +25,7 @@ export async function PostList() {
   function getLocaleString(date: Date | string, lang: string) {
     return dayjs(date)
       .toDate()
-      .toLocaleString(lang, { month: "long", day: "numeric" });
+      .toLocaleString(lang, { year: "numeric", month: "long", day: "numeric" });
   }
 
   return (
@@ -52,7 +52,7 @@ export async function PostList() {
                       <div className="flex items-center gap-2">
                         <span
                           className="text-sm whitespace-nowrap"
-                          style={{ width: "100px", display: "inline-block" }}
+                          style={{ width: "130px", display: "inline-block" }}
                         >
                           {getLocaleString(post.date, "en")}
                         </span>

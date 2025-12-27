@@ -7,12 +7,12 @@
     .line {
       fill: none;
       stroke: #ffffff;
-      stroke-width: 8;
+      stroke-width: 10;
     }
     .dashed {
       fill: none;
       stroke: #ffffff;
-      stroke-width: 8;
+      stroke-width: 10;
       stroke-dasharray: 5 5;
     }
   </style>

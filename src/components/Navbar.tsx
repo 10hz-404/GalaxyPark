@@ -33,9 +33,9 @@ export function Navbar() {
                   <Image
                     src="/logo.svg"
                     alt="Galaxy Park Logo"
-                    width={120}
-                    height={40}
-                    className="w-auto h-10"
+                    width={144}
+                    height={48}
+                    className="w-auto h-10 xl:h-12"
                   />
                 </div>
               </div>

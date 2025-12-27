@@ -28,9 +28,9 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
                   <Image
                     src="/logo.svg"
                     alt="Galaxy Park Logo"
-                    width={120}
-                    height={40}
-                    className="w-auto h-10 invert-[53%] sepia-[20%] saturate-[4000%] hue-rotate-[1deg] brightness-[102%] contrast-[105%]"
+                    width={144}
+                    height={48}
+                    className="w-auto h-10 xl:h-12 invert-[53%] sepia-[20%] saturate-[4000%] hue-rotate-[1deg] brightness-[102%] contrast-[105%]"
                     style={{
                       filter:
                         "var(--glxp-yellow-filter, invert(0%) sepia(100%) saturate(4000%) hue-rotate(1deg) brightness(1000%) contrast(100%))",
