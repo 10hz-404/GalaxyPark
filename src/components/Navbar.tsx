@@ -29,8 +29,8 @@ export function Navbar() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY <= 300) {
-        // At the top (within 300px), always show Logo
+      if (currentScrollY <= 500) {
+        // At the top (within 500px), always show Logo
         setShowReturnToTop(false);
       } else if (currentScrollY < lastScrollY) {
         // Scrolling UP and NOT at top -> Show "Return to top"
