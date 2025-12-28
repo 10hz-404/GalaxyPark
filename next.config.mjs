@@ -17,6 +17,19 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async headers() {
+    return [
+      {
+        source: "/24ef9d194f073a60d27e4308f082dbbc.txt",
+        headers: [
+          {
+            key: "Content-Disposition",
+            value: 'attachment; filename="24ef9d194f073a60d27e4308f082dbbc.txt"',
+          },
+        ],
+      },
+    ];
+  },
   reactCompiler: true,
   webpack: (config) => {
     config.plugins.push(
