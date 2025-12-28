@@ -7,8 +7,12 @@ export const WeChatGuide = () => {
 
   useEffect(() => {
     const ua = navigator.userAgent.toLowerCase();
+    // 判断是否为移动设备
+    const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua);
     // 判断是否在微信环境中
-    if (ua.match(/micromessenger/i)) {
+    const isWeChatBrowser = /micromessenger/i.test(ua);
+    // 只在 PC 端微信环境中显示引导
+    if (isWeChatBrowser && !isMobile) {
       setIsWeChat(true);
     }
   }, []);
