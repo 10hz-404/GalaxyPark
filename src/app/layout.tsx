@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Suspense } from "react";
 import { Provider } from "./provider";
 import { Navbar } from "@/components/Navbar";
 import { WeChatGuide } from "@/components/WeChatGuide";
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer";
+import { NProgressBar } from "@/components/NProgressBar";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next"
 
@@ -105,6 +107,10 @@ export default function RootLayout({
       <body>
         <Analytics />
         <Provider>
+          {/* NProgress 进度条 */}
+          <Suspense fallback={null}>
+            <NProgressBar />
+          </Suspense>
           {/* 导航栏 */}
           <Navbar />
           <WeChatGuide />

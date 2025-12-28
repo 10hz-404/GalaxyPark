@@ -44,7 +44,7 @@ export async function PostList() {
               {posts?.map((post) => {
                 return (
                   <Link
-                    href={`posts/${post.slug}`}
+                    href={`/posts/${post.slug}`}
                     key={post.pid}
                     className=" opacity-60 hover:opacity-100"
                   >
