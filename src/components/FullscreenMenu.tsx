@@ -63,7 +63,7 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
             {menus.map((menu, index) => (
               <div key={menu.name} className="mb-8">
                 <div className="flex items-center gap-6 xl:gap-8">
-                  <span className="text-[var(--glxp-yellow)] italic text-2xl xl:text-4xl font-bold font-made-bon-voyage">
+                  <span className="text-[var(--glxp-yellow)] italic text-2xl xl:text-4xl font-bold">
                     {String(index + 1).padStart(2, "0")}.
                   </span>
                   <Link

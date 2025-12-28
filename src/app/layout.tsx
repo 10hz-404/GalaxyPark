@@ -30,11 +30,6 @@ const smileySans = localFont({
       weight: "400",
       style: "normal",
     },
-    {
-      path: "../../public/fonts/SmileySans/SmileySans-Oblique.otf",
-      weight: "400",
-      style: "normal",
-    },
   ],
   variable: "--font-smiley-sans",
 });
@@ -47,36 +42,8 @@ const ibmPlexSansCondensed = localFont({
       weight: "600",
       style: "normal",
     },
-    {
-      path: "../../public/fonts/IBMPlexSansSC-Medium/IBMPlexSansSC-Medium.otf",
-      weight: "600",
-      style: "normal",
-    },
   ],
   variable: "--font-ibm-plex-sans-sc",
-});
-
-// 添加本地Made Bon Voyage字体
-const madeBonVoyageRegular = localFont({
-  src: [
-    {
-      path: "../../public/fonts/made-bon-voyage/MADE Bon Voyage Regular PERSONAL USE.otf",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-  variable: "--font-made-bon-voyage-regular",
-});
-
-const madeBonVoyageThin = localFont({
-  src: [
-    {
-      path: "../../public/fonts/made-bon-voyage/MADE Bon Voyage Thin PERSONAL USE.otf",
-      weight: "100",
-      style: "normal",
-    },
-  ],
-  variable: "--font-made-bon-voyage-thin",
 });
 
 export const metadata: Metadata = {
@@ -92,7 +59,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ibmPlexSansCondensed.variable} ${smileySans.variable} ${madeBonVoyageRegular.variable} ${madeBonVoyageThin.variable} ${neueMachina.variable} antialiased`}
+      className={`${ibmPlexSansCondensed.variable} ${smileySans.variable} ${neueMachina.variable} antialiased`}
     >
       <head>
         <meta
