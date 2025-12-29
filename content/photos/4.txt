@@ -1,0 +1,17 @@
+[title]
+"My friends and I"
+[date]
+"2022-11-10"
+[photos]
+"/photos/4/1.JPG",
+"/photos/4/10.JPG",
+"/photos/4/2.JPG",
+"/photos/4/3.JPG",
+"/photos/4/4.JPG",
+"/photos/4/5.JPG",
+"/photos/4/6.JPG",
+"/photos/4/7.JPG",
+"/photos/4/8.JPG",
+"/photos/4/9.JPG"
+[content]
+

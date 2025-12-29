@@ -1,0 +1,10 @@
+[title]
+"Behind The Flowers"
+[date]
+"2025-10-1"
+[photos]
+"/photos/8/1.JPG",
+"/photos/8/2.JPG",
+"/photos/8/3.JPG"
+[content]
+

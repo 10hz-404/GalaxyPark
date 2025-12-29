@@ -1,17 +1,17 @@
 ---
-title: Markdown 示例
+title: Markdown 渲染示例
 tags: example
 lang: zh-CN
-date: 2026-08-23 13:39:27
+date: 2025-12-29 13:39:27
 categories: learn
 pid: 39339a477aea1d494959790e4c7262679b64
-last-edit: 2026-08-23 14:23:49
+last-edit: 2025-12-29 13:39:27
 duration: 10min
-author: Clover You
+author: Yao Lin
 ---
 [[toc]]
 
-This is an external link <a href="http://www.ctong.top" target="_blank">Click</a> on it to go to the destination
+This is an external link <a href="https://www.galaxypark.cn" target="_blank">Click</a> on it to go to the destination
 
 As you can see, this is an interoperable butto! Try click it!
 
@@ -103,7 +103,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   .await?;
 
   let mut req = Request::new(SigninRequest {
-      email: "cloveryou02@gmail.com".to_string(),
+      email: "1208490466@qq.com".to_string(),
       password: "123456".to_string(),
   });
 
