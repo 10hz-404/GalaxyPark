@@ -4,6 +4,12 @@ import fs from "fs-extra";
 const IsPro = process.env.NODE_ENV === "production";
 const IsDev = process.env.NODE_ENV === "development";
 
+type PhotoListMode = "full" | "cover";
+
+interface GetPhotoListOptions {
+  mode?: PhotoListMode;
+}
+
 async function getPhotoFiles() {
   const files = await fg("content/photos/*.txt");
 
@@ -13,9 +19,16 @@ async function getPhotoFiles() {
   });
 }
 
-let __PHOTOS: Photo[];
-export async function getPhotoList() {
-  if (!IsDev && __PHOTOS) return __PHOTOS;
+let __PHOTOS_FULL: Photo[];
+let __PHOTOS_COVER: Photo[];
+
+export async function getPhotoList(options?: GetPhotoListOptions) {
+  const mode = options?.mode ?? "full";
+
+  if (!IsDev) {
+    if (mode === "full" && __PHOTOS_FULL) return __PHOTOS_FULL;
+    if (mode === "cover" && __PHOTOS_COVER) return __PHOTOS_COVER;
+  }
 
   const files = await getPhotoFiles();
 
@@ -37,14 +50,22 @@ export async function getPhotoList() {
           .filter((line: string) => !!line);
       }
       return { title, date, content, photoUrls };
-    })
+    }),
   );
 
-  __PHOTOS = photos.sort((a, b) => {
+  const sortedPhotos = photos.sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 
-  return __PHOTOS;
+  const coverPhotos = sortedPhotos.map((photo) => ({
+    ...photo,
+    photoUrls: photo.photoUrls.slice(0, 1),
+  }));
+
+  __PHOTOS_FULL = sortedPhotos;
+  __PHOTOS_COVER = coverPhotos;
+
+  return mode === "cover" ? __PHOTOS_COVER : __PHOTOS_FULL;
 }
 
 export function slugify(str: string) {

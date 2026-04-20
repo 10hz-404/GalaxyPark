@@ -30,13 +30,14 @@ const MasonryItem = memo(function MasonryItem({
   const href = useMemo(() => `/photo/${slugify(photo.title)}`, [photo.title]);
   const delayStyle = useMemo(
     () => ({ "--delay": `${originalIndex * 100}ms` }) as React.CSSProperties,
-    [originalIndex]
+    [originalIndex],
   );
 
   return (
     <div className={styles["animate-in"]} style={delayStyle}>
       <Link
         href={href}
+        prefetch={false}
         className="group relative block rounded-2xl overflow-hidden"
       >
         {photo.photoUrls[0] && (
@@ -107,7 +108,7 @@ export default function MasonryGrid({ photos }: MasonryGridProps) {
     const effectiveColumns = columns === 0 ? 2 : columns;
     const wrappers: { photo: Photo; originalIndex: number }[][] = Array.from(
       { length: effectiveColumns },
-      () => []
+      () => [],
     );
     photos.forEach((photo, index) => {
       wrappers[index % effectiveColumns].push({ photo, originalIndex: index });

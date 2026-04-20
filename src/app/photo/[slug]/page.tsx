@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPhotoList, slugify } from "@/core/photo";
+import SequentialPhotoList from "./SequentialPhotoList";
 
 interface Props {
   params: Promise<{
@@ -11,7 +12,7 @@ interface Props {
 // 动态元数据
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const photos = await getPhotoList();
+  const photos = await getPhotoList({ mode: "cover" });
   const photo = photos.find((p) => slugify(p.title) === slug);
   if (!photo) return { title: "Galaxy Park" };
   return {
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const photos = await getPhotoList();
+  const photos = await getPhotoList({ mode: "cover" });
   return photos.map((p) => ({ slug: slugify(p.title) }));
 }
 
@@ -42,19 +43,7 @@ export default async function PhotoPage({ params }: Props) {
         <p className="leading-relaxed whitespace-pre-line">{photo.content}</p>
       </div>
 
-      {/* 右侧滚动内容区 */}
-      {/* <div className="w-full xl:w-2/3"> */}
-      {/* 图片之间有间隔 */}
-      <div className="w-full space-y-4 xl:w-2/3"> 
-        {photo.photoUrls.map((url: string, idx: number) => (
-          <img
-            key={idx}
-            src={url}
-            alt={photo.title + "-" + (idx + 1)}
-            className="object-cover w-full shadow-lg"
-          />
-        ))}
-      </div>
+      <SequentialPhotoList title={photo.title} photoUrls={photo.photoUrls} />
     </div>
   );
 }
