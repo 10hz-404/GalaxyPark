@@ -1,5 +1,6 @@
 "use client";
 
+import { Skeleton } from "@heroui/react";
 import { useEffect, useState } from "react";
 
 interface SequentialPhotoListProps {
@@ -43,20 +44,30 @@ export default function SequentialPhotoList({
     };
   }, [photoUrls]);
 
-  const visiblePhotos = photoUrls.slice(0, visibleCount);
-
   return (
     <div className="w-full space-y-4 xl:w-2/3">
-      {visiblePhotos.map((url, idx) => (
-        <img
-          key={`${url}-${idx}`}
-          src={url}
-          alt={`${title}-${idx + 1}`}
-          className="object-cover w-full shadow-lg"
-          loading={idx === 0 ? "eager" : "lazy"}
-          decoding="async"
-        />
-      ))}
+      {photoUrls.map((url, idx) => {
+        const loaded = idx < visibleCount;
+
+        if (loaded) {
+          return (
+            <img
+              key={`${url}-${idx}`}
+              src={url}
+              alt={`${title}-${idx + 1}`}
+              className="object-cover w-full shadow-lg"
+              loading={idx === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
+          );
+        }
+
+        return (
+          <div key={`${url}-${idx}`} className="w-full shadow-lg">
+            <Skeleton className="h-[42vh] w-full xl:h-[56vh]" />
+          </div>
+        );
+      })}
     </div>
   );
 }
