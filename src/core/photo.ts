@@ -1,5 +1,7 @@
 import fg from "fast-glob";
 import fs from "fs-extra";
+import path from "path";
+import sharp from "sharp";
 
 const IsPro = process.env.NODE_ENV === "production";
 const IsDev = process.env.NODE_ENV === "development";
@@ -8,6 +10,40 @@ type PhotoListMode = "full" | "cover";
 
 interface GetPhotoListOptions {
   mode?: PhotoListMode;
+}
+
+const __PHOTO_ASPECT_CACHE = new Map<string, number | undefined>();
+
+async function getPhotoAspectRatio(
+  photoUrl: string,
+): Promise<number | undefined> {
+  if (__PHOTO_ASPECT_CACHE.has(photoUrl)) {
+    return __PHOTO_ASPECT_CACHE.get(photoUrl);
+  }
+
+  const normalizedPath = photoUrl.replace(/^\/+/, "");
+  const absolutePath = path.join(process.cwd(), "public", normalizedPath);
+
+  if (!(await fs.pathExists(absolutePath))) {
+    __PHOTO_ASPECT_CACHE.set(photoUrl, undefined);
+    return undefined;
+  }
+
+  try {
+    const meta = await sharp(absolutePath).metadata();
+
+    if (!meta.width || !meta.height || meta.height <= 0) {
+      __PHOTO_ASPECT_CACHE.set(photoUrl, undefined);
+      return undefined;
+    }
+
+    const ratio = Number((meta.width / meta.height).toFixed(4));
+    __PHOTO_ASPECT_CACHE.set(photoUrl, ratio);
+    return ratio;
+  } catch {
+    __PHOTO_ASPECT_CACHE.set(photoUrl, undefined);
+    return undefined;
+  }
 }
 
 async function getPhotoFiles() {
@@ -49,7 +85,19 @@ export async function getPhotoList(options?: GetPhotoListOptions) {
           .map((line: string) => line.replace(/^[",\s]+|[",\s]+$/g, ""))
           .filter((line: string) => !!line);
       }
-      return { title, date, content, photoUrls };
+
+      const photoAspectRatios = await Promise.all(
+        photoUrls.map((url) => getPhotoAspectRatio(url)),
+      );
+
+      return {
+        title,
+        date,
+        content,
+        photoUrls,
+        coverAspectRatio: photoAspectRatios[0],
+        photoAspectRatios,
+      };
     }),
   );
 
@@ -60,6 +108,7 @@ export async function getPhotoList(options?: GetPhotoListOptions) {
   const coverPhotos = sortedPhotos.map((photo) => ({
     ...photo,
     photoUrls: photo.photoUrls.slice(0, 1),
+    photoAspectRatios: photo.photoAspectRatios?.slice(0, 1),
   }));
 
   __PHOTOS_FULL = sortedPhotos;

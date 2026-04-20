@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 interface SequentialPhotoListProps {
   title: string;
   photoUrls: string[];
+  photoAspectRatios?: Array<number | undefined>;
 }
 
 export default function SequentialPhotoList({
   title,
   photoUrls,
+  photoAspectRatios,
 }: SequentialPhotoListProps) {
   const [visibleCount, setVisibleCount] = useState(0);
 
@@ -48,6 +50,11 @@ export default function SequentialPhotoList({
     <div className="w-full space-y-4 xl:w-2/3">
       {photoUrls.map((url, idx) => {
         const loaded = idx < visibleCount;
+        const aspectRatio = photoAspectRatios?.[idx] ?? 1.5;
+
+        const commonWrapperStyle: React.CSSProperties = {
+          aspectRatio: String(aspectRatio),
+        };
 
         if (loaded) {
           return (
@@ -56,6 +63,7 @@ export default function SequentialPhotoList({
               src={url}
               alt={`${title}-${idx + 1}`}
               className="object-cover w-full shadow-lg"
+              style={commonWrapperStyle}
               loading={idx === 0 ? "eager" : "lazy"}
               decoding="async"
             />
@@ -63,8 +71,12 @@ export default function SequentialPhotoList({
         }
 
         return (
-          <div key={`${url}-${idx}`} className="w-full shadow-lg">
-            <Skeleton className="h-[42vh] w-full xl:h-[56vh]" />
+          <div
+            key={`${url}-${idx}`}
+            className="w-full shadow-lg"
+            style={commonWrapperStyle}
+          >
+            <Skeleton className="h-full w-full" />
           </div>
         );
       })}

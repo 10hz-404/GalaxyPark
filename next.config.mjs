@@ -20,11 +20,30 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: "/photos/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, must-revalidate",
+          },
+        ],
+      },
+      {
+        source: "/content/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, must-revalidate",
+          },
+        ],
+      },
+      {
         source: "/24ef9d194f073a60d27e4308f082dbbc.txt",
         headers: [
           {
             key: "Content-Disposition",
-            value: 'attachment; filename="24ef9d194f073a60d27e4308f082dbbc.txt"',
+            value:
+              'attachment; filename="24ef9d194f073a60d27e4308f082dbbc.txt"',
           },
         ],
       },
@@ -66,10 +85,10 @@ const nextConfig = {
                 },
               },
               parseMetaString,
-            })
+            }),
           );
         },
-      })
+      }),
     );
     return config;
   },

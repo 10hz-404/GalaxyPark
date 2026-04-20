@@ -43,7 +43,11 @@ export default async function PhotoPage({ params }: Props) {
         <p className="leading-relaxed whitespace-pre-line">{photo.content}</p>
       </div>
 
-      <SequentialPhotoList title={photo.title} photoUrls={photo.photoUrls} />
+      <SequentialPhotoList
+        title={photo.title}
+        photoUrls={photo.photoUrls}
+        photoAspectRatios={photo.photoAspectRatios}
+      />
     </div>
   );
 }

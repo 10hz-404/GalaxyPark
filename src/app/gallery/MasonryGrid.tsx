@@ -30,6 +30,7 @@ const MasonryItem = memo(function MasonryItem({
   const [isLoaded, setIsLoaded] = useState(false);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const coverUrl = photo.photoUrls[0];
+  const coverAspectRatio = photo.coverAspectRatio ?? 1.5;
 
   useEffect(() => {
     setIsLoaded(false);
@@ -54,6 +55,7 @@ const MasonryItem = memo(function MasonryItem({
         href={href}
         prefetch={false}
         className="group relative block rounded-2xl overflow-hidden"
+        style={{ aspectRatio: String(coverAspectRatio) }}
       >
         <Skeleton
           className={`absolute inset-0 rounded-2xl ${isLoaded ? "opacity-0" : "opacity-100"}`}
@@ -64,7 +66,7 @@ const MasonryItem = memo(function MasonryItem({
             ref={imageRef}
             src={coverUrl}
             alt={photo.title}
-            className={`w-full aspect-[3/2] object-cover transition-transform duration-500 group-hover:scale-110 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+            className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 ${isLoaded ? "opacity-100" : "opacity-0"}`}
             loading="lazy"
             decoding="async"
             onLoad={() => setIsLoaded(true)}
