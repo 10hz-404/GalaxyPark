@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { Suspense } from "react";
 import { Provider } from "./provider";
 import { Navbar } from "@/components/Navbar";
@@ -8,7 +9,7 @@ import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer";
 import { NProgressBar } from "@/components/NProgressBar";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 
 // 添加本地NeueMachina字体作为默认英文字体
 const neueMachina = localFont({
@@ -56,6 +57,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const shouldLoadClarity = process.env.NODE_ENV === "production";
+
   return (
     <html
       lang="en"
@@ -69,10 +72,26 @@ export default function RootLayout({
         {/* 预加载首页 preview 图片，提前开始下载 */}
         <link rel="preload" as="image" href="/content/Home-preview.jpg" />
         {/* 原图 3MB，使用较低优先级预加载，不阻塞其他资源 */}
-        <link rel="preload" as="image" href="/content/Home.jpeg" fetchPriority="low" />
+        <link
+          rel="preload"
+          as="image"
+          href="/content/Home.jpeg"
+          fetchPriority="low"
+        />
       </head>
       <body>
         <Analytics />
+        {shouldLoadClarity ? (
+          <Script id="microsoft-clarity" strategy="afterInteractive">
+            {`
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "wegwvydhyy");
+            `}
+          </Script>
+        ) : null}
         <Provider>
           {/* NProgress 进度条 */}
           <Suspense fallback={null}>

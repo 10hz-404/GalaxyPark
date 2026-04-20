@@ -14,32 +14,32 @@ export default function SequentialPhotoList({
   photoUrls,
   photoAspectRatios,
 }: SequentialPhotoListProps) {
-  const [visibleCount, setVisibleCount] = useState(0);
+  const [loadedStates, setLoadedStates] = useState<boolean[]>([]);
 
   useEffect(() => {
     let cancelled = false;
 
-    setVisibleCount(0);
+    setLoadedStates(Array(photoUrls.length).fill(false));
 
-    const preloadByOrder = (index: number) => {
-      if (cancelled) return;
-      if (index >= photoUrls.length) return;
-
+    // 并行预加载：每张图加载完成后单独更新可见状态
+    photoUrls.forEach((url, index) => {
       const loader = new Image();
 
-      const finishCurrent = () => {
+      const markLoaded = () => {
         if (cancelled) return;
-        setVisibleCount(index + 1);
-        preloadByOrder(index + 1);
+        setLoadedStates((prev) => {
+          if (prev[index]) return prev;
+          const next = [...prev];
+          next[index] = true;
+          return next;
+        });
       };
 
-      loader.onload = finishCurrent;
-      loader.onerror = finishCurrent;
+      loader.onload = markLoaded;
+      loader.onerror = markLoaded;
       loader.decoding = "async";
-      loader.src = photoUrls[index];
-    };
-
-    preloadByOrder(0);
+      loader.src = url;
+    });
 
     return () => {
       cancelled = true;
@@ -49,7 +49,7 @@ export default function SequentialPhotoList({
   return (
     <div className="w-full space-y-4 xl:w-2/3">
       {photoUrls.map((url, idx) => {
-        const loaded = idx < visibleCount;
+        const loaded = loadedStates[idx] ?? false;
         const aspectRatio = photoAspectRatios?.[idx] ?? 1.5;
 
         const commonWrapperStyle: React.CSSProperties = {
