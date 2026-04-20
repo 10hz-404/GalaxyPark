@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useMemo, memo } from "react";
+import { Skeleton } from "@heroui/react";
+import { useEffect, useMemo, memo, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./gallery.module.css";
 
@@ -26,6 +27,20 @@ const MasonryItem = memo(function MasonryItem({
   photo: Photo;
   originalIndex: number;
 }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const coverUrl = photo.photoUrls[0];
+
+  useEffect(() => {
+    setIsLoaded(false);
+  }, [coverUrl]);
+
+  useEffect(() => {
+    if (imageRef.current?.complete) {
+      setIsLoaded(true);
+    }
+  }, [coverUrl]);
+
   // 缓存 href 和 style，避免每次渲染创建新对象
   const href = useMemo(() => `/photo/${slugify(photo.title)}`, [photo.title]);
   const delayStyle = useMemo(
@@ -40,12 +55,20 @@ const MasonryItem = memo(function MasonryItem({
         prefetch={false}
         className="group relative block rounded-2xl overflow-hidden"
       >
-        {photo.photoUrls[0] && (
+        <Skeleton
+          className={`absolute inset-0 rounded-2xl ${isLoaded ? "opacity-0" : "opacity-100"}`}
+        />
+
+        {coverUrl && (
           <img
-            src={photo.photoUrls[0]}
+            ref={imageRef}
+            src={coverUrl}
             alt={photo.title}
-            className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
+            className={`w-full aspect-[3/2] object-cover transition-transform duration-500 group-hover:scale-110 ${isLoaded ? "opacity-100" : "opacity-0"}`}
             loading="lazy"
+            decoding="async"
+            onLoad={() => setIsLoaded(true)}
+            onError={() => setIsLoaded(true)}
           />
         )}
 
@@ -64,82 +87,19 @@ const MasonryItem = memo(function MasonryItem({
 });
 
 export default function MasonryGrid({ photos }: MasonryGridProps) {
-  // 初始设为 0，等 window.innerWidth 确认后再渲染，避免布局闪烁
-  const [columns, setColumns] = useState(0);
-
-  useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    const updateColumns = () => {
-      // 防抖：100ms 内多次 resize 只执行一次
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        // 匹配 tailwind 断点: md: 768px, xl: 1280px
-        if (window.innerWidth >= 1280) {
-          setColumns(5);
-        } else if (window.innerWidth >= 768) {
-          setColumns(3);
-        } else {
-          setColumns(2);
-        }
-      }, 100);
-    };
-
-    // 首次立即执行，不需要防抖
-    if (window.innerWidth >= 1280) {
-      setColumns(5);
-    } else if (window.innerWidth >= 768) {
-      setColumns(3);
-    } else {
-      setColumns(2);
-    }
-
-    window.addEventListener("resize", updateColumns);
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener("resize", updateColumns);
-    };
-  }, []);
-
-  // 使用 useMemo 缓存列分配计算，只在 photos 或 columns 变化时重新计算
-  // 必须放在条件判断之前，确保 Hooks 调用顺序稳定
-  // columns=0 时使用默认 2 列计算布局，确保图片可以预加载
-  const columnWrappers = useMemo(() => {
-    const effectiveColumns = columns === 0 ? 2 : columns;
-    const wrappers: { photo: Photo; originalIndex: number }[][] = Array.from(
-      { length: effectiveColumns },
-      () => [],
-    );
-    photos.forEach((photo, index) => {
-      wrappers[index % effectiveColumns].push({ photo, originalIndex: index });
-    });
-    return wrappers;
-  }, [photos, columns]);
-
-  // 列数未确定时隐藏但仍渲染（图片会预加载），确定后显示
-  const isReady = columns > 0;
+  const items = useMemo(
+    () => photos.map((photo, index) => ({ photo, originalIndex: index })),
+    [photos],
+  );
 
   return (
-    <div
-      className="flex gap-2 xl:gap-4 p-2 xl:p-4 mx-auto max-w-[2400px] items-start transition-opacity duration-300"
-      style={{
-        opacity: isReady ? 1 : 0,
-        pointerEvents: isReady ? "auto" : "none",
-      }}
-    >
-      {columnWrappers.map((col, colIndex) => (
-        <div
-          key={colIndex}
-          className="flex flex-col gap-2 xl:gap-4 flex-1 min-w-0"
-        >
-          {col.map(({ photo, originalIndex }) => (
-            <MasonryItem
-              key={originalIndex}
-              photo={photo}
-              originalIndex={originalIndex}
-            />
-          ))}
-        </div>
+    <div className="grid grid-cols-2 gap-2 p-2 mx-auto md:grid-cols-3 xl:grid-cols-5 xl:gap-4 xl:p-4 max-w-[2400px]">
+      {items.map(({ photo, originalIndex }) => (
+        <MasonryItem
+          key={originalIndex}
+          photo={photo}
+          originalIndex={originalIndex}
+        />
       ))}
     </div>
   );
