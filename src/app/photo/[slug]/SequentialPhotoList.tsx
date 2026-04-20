@@ -50,10 +50,10 @@ export default function SequentialPhotoList({
     <div className="w-full space-y-4 xl:w-2/3">
       {photoUrls.map((url, idx) => {
         const loaded = loadedStates[idx] ?? false;
-        const aspectRatio = photoAspectRatios?.[idx] ?? 1.5;
+        const aspectRatio = photoAspectRatios?.[idx];
 
-        const commonWrapperStyle: React.CSSProperties = {
-          aspectRatio: String(aspectRatio),
+        const placeholderStyle: React.CSSProperties = {
+          aspectRatio: String(aspectRatio ?? 1.5),
         };
 
         if (loaded) {
@@ -62,8 +62,7 @@ export default function SequentialPhotoList({
               key={`${url}-${idx}`}
               src={url}
               alt={`${title}-${idx + 1}`}
-              className="object-cover w-full shadow-lg"
-              style={commonWrapperStyle}
+              className="block w-full h-auto shadow-lg"
               loading={idx === 0 ? "eager" : "lazy"}
               decoding="async"
             />
@@ -74,9 +73,9 @@ export default function SequentialPhotoList({
           <div
             key={`${url}-${idx}`}
             className="w-full shadow-lg"
-            style={commonWrapperStyle}
+            style={placeholderStyle}
           >
-            <Skeleton className="h-full w-full" />
+            <Skeleton className="w-full h-full" />
           </div>
         );
       })}

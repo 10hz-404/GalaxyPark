@@ -54,7 +54,7 @@ const MasonryItem = memo(function MasonryItem({
       <Link
         href={href}
         prefetch={false}
-        className="group relative block rounded-2xl overflow-hidden"
+        className="relative block overflow-hidden group rounded-2xl"
         style={{ aspectRatio: String(coverAspectRatio) }}
       >
         <Skeleton
@@ -75,11 +75,11 @@ const MasonryItem = memo(function MasonryItem({
         )}
 
         {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-          <h3 className="text-white font-bold text-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+        <div className="absolute inset-0 flex flex-col justify-end p-6 transition-opacity duration-300 opacity-0 bg-linear-to-t from-black/80 via-black/20 to-transparent group-hover:opacity-100">
+          <h3 className="text-lg font-bold text-white transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
             {photo.title}
           </h3>
-          <p className="text-white/80 text-sm mt-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+          <p className="mt-1 text-sm transition-transform duration-300 delay-75 transform translate-y-4 text-white/80 group-hover:translate-y-0">
             {photo.date}
           </p>
         </div>
@@ -95,7 +95,7 @@ export default function MasonryGrid({ photos }: MasonryGridProps) {
   );
 
   return (
-    <div className="grid grid-cols-2 gap-2 p-2 mx-auto md:grid-cols-3 xl:grid-cols-5 xl:gap-4 xl:p-4 max-w-[2400px]">
+    <div className={styles.orderedGrid}>
       {items.map(({ photo, originalIndex }) => (
         <MasonryItem
           key={originalIndex}

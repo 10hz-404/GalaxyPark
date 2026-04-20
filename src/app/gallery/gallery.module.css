@@ -13,3 +13,26 @@
   animation: fadeInUp 0.6s ease-out backwards;
   animation-delay: var(--delay, 0ms);
 }
+
+.orderedGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 2400px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+@media (min-width: 768px) {
+  .orderedGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .orderedGrid {
+    padding: 16px;
+    gap: 16px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
